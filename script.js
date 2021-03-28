@@ -26,33 +26,27 @@ function isValidEmail(email) {
   return re.test(String(email).toLowerCase());
 }
 
+// Check required fields
+
+function checkRequired(inputArr) {
+  inputArr.forEach(function (input) {
+    if (input.value.trim() === "") {
+      showError(input, `${getFieldName(input)} is required`);
+    } else {
+      showSuccess(input);
+    }
+  });
+}
+
+// Get Field Name
+
+function getFieldName(input) {
+  return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+}
+
 //Event Listeners
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  if (username.value === "") {
-    showError(username, "Please enter username");
-  } else {
-    showSuccess(username);
-  }
-
-  if (email.value === "") {
-    showError(email, "Please enter email");
-  } else if (!isValidEmail(email.value)) {
-    showError(email, "Please enter email");
-  } else {
-    showSuccess(username);
-  }
-
-  if (password.value === "") {
-    showError(username, "Please enter username");
-  } else {
-    showSuccess(username);
-  }
-
-  if (passsword2.value === "") {
-    showError(username, "Please enter username");
-  } else {
-    showSuccess(username);
-  }
+  checkRequired([username, email, password, password2]);
 });
